@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Cadastro de Paciente/style.css">
     <title>Triangem de Pacientes</title>
 </head>
+
 <body>
     <h1>Triagem de pacientes</h1>
-    <label for="">Nome do Paciente: <input id="nome"></label><br>
-    <label for="">Temperatura: <input id="temperatura" type="number"></label><br>
-    <label for="">Pressão arterial: <input id="pressao"></label><br>
-    <label for="">Sintomas: <textarea name="" id="sintomas"></textarea></label><br>
-    
-    <label for="">Classificação de risco: 
-    <select name="" id="risco">
-        <option value="verde">Verde - Pouco Urgente</option>
-        <option value="amarelo">Amarelo - Urgente</option>
-        <option value="vermelho">Vermelho - Muito Urgente</option>
-    </select>
-    </label>
 
-    <button onclick="enviarTriagem()">Enviar ao médico</button>
-    
-    <script src="/main.js"></script>
+    <p><strong>Paciente: </strong><span id="nomeExibido"></span></p>
+    <p><strong>Reclamando de: </strong><span id="SintomaExibido"></span></p>
+
+        <label for="">Temperatura:(C°)<input id="temperatura" type="number"></label><br>
+        <label for="">Pressão arterial: <input id="pressao"></label><br>
+        <label for="">Glicemia(mg/dl)<input id="glicemia"></label><br>
+        <label for="">Observações: <br><textarea name="" id="observacao"></textarea></label><br>
+    </section>
+
+    <section id="classificarRisco">
+        <label for="">Classificação de risco:
+            <select name="" id="risco">
+                <option value="verde">🟢 Verde - Pouco Urgente</option>
+                <option value="amarelo">🟡 Amarelo - Urgente</option>
+                <option value="vermelho">🔴 Vermelho - Muito Urgente</option>
+            </select>
+        </label>
+    </section>
+    <button onclick="enviarTriagem()">Enviar ao médico</button><br>
+
+    <a href="/Fila de Pacientes/index.html">Tela do médico</a></li>
+
+    <script src="../main.js"></script>
 </body>
+
 </html>
