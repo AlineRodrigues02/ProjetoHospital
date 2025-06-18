@@ -9,31 +9,55 @@
 </head>
 
 <body>
-    <h1>Triagem de pacientes</h1>
-    <div id="dadosPaciente"></div>
-    <p><strong>Paciente: </strong><span id="nomeExibido"></span></p>
-    <p><strong>Reclamando de: </strong><span id="SintomaExibido"></span></p>
+  <div class="container">
+    <h1>Triagem de Pacientes</h1>
 
-        <label for="">Temperatura:(C°)<input id="temperatura" type="number"></label><br>
-        <label for="">Pressão arterial: <input id="pressao"></label><br>
-        <label for="">Glicemia(mg/dl)<input id="glicemia"></label><br>
-        <label for="">Observações: <br><textarea name="" id="observacao"></textarea></label><br>
-    </section>
+    <div class="paciente-info"> <div id="dadosPaciente"></div>
+    </div>
 
-    <section id="classificarRisco">
-        <label for="">Classificação de risco:
-            <select name="" id="risco">
-                <option value="verde">🟢 Verde - Pouco Urgente</option>
-                <option value="amarelo">🟡 Amarelo - Urgente</option>
-                <option value="vermelho">🔴 Vermelho - Muito Urgente</option>
-            </select>
-        </label>
-    </section>
-    <button onclick="enviarTriagem()">Enviar ao médico</button><br>
+    <form class="form-triagem" onsubmit="enviarTriagem(); return false;">
+      <div class="campo">
+        <label for="temperatura">Temperatura (°C):</label>
+        <input type="number" id="temperatura" required />
+      </div>
 
-    <a href="../Fila de Pacientes/index.html">Tela do médico</a></li>
+      <div class="campo">
+        <label for="pressao">Pressão Arterial:</label>
+        <input type="text" id="pressao" required />
+      </div>
 
-    <script src="../main.js"></script>
+      <div class="campo">
+        <label for="glicemia">Glicemia (mg/dl):</label>
+        <input type="number" id="glicemia" required />
+      </div>
+
+      <div class="campo">
+        <label for="observacao">Observações:</label>
+        <textarea id="observacao" rows="4"></textarea>
+      </div>
+
+      <div class="campo">
+        <label for="risco">Classificação de Risco:</label>
+        <select id="risco" required>
+          <option value="">Selecione</option>
+          <option value="verde">🟢 Verde - Pouco Urgente</option>
+          <option value="amarelo">🟡 Amarelo - Urgente</option>
+          <option value="vermelho">🔴 Vermelho - Muito Urgente</option>
+        </select>
+      </div>
+
+      <button type="submit" class="botao-enviar">Enviar ao médico</button>
+    </form>
+
+    <div class="link-medico">
+      <a href="../Fila de Pacientes/index.html">👉 Ir para a tela do médico</a>
+    </div>
+  </div>
+
+  <script src="../main.js"></script>
 </body>
+
+
+
 
 </html>

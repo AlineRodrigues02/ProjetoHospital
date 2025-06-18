@@ -1,0 +1,122 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f6fa;
+  padding: 20px;
+  margin: 0;
+}
+
+.container {
+  max-width: 600px;
+  background-color: #fff;
+  margin: auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.paciente-info {
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.paciente-info p {
+  margin: 8px 0;
+}
+
+.form-triagem .campo {
+  margin-bottom: 15px;
+}
+
+.form-triagem label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-triagem input,
+.form-triagem textarea,
+.form-triagem select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.form-triagem textarea {
+  resize: vertical;
+}
+
+.botao-enviar {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.botao-enviar:hover {
+  background-color: #2980b9;
+}
+
+.link-medico {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.link-medico a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link-medico a:hover {
+  text-decoration: underline;
+}
+.lista-pacientes {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.paciente {
+  background-color: #fff;
+  border-left: 6px solid #ccc;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.paciente strong {
+  font-size: 1.1rem;
+}
+
+.paciente button {
+  margin-top: 0.5rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.paciente button:hover {
+  background-color: #0056b3;
+}
