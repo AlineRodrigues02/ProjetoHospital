@@ -38,12 +38,13 @@ function enviarTriagem() {
   const observacao = document.getElementById("observacao").value;
   const glicemia = document.getElementById("glicemia").value;
   const risco = document.getElementById("risco").value;
+  const horario = new Date().toLocaleTimeString(); // ⏰ aqui pega a hora
 
   let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
   if (paciente.length === 0) return alert("Cadastre o paciente");
 
   // Corrigido aqui: de 'peciente' para 'paciente'
-  paciente[paciente.length - 1].triagem = { temperatura, pressao, observacao, glicemia, risco };
+  paciente[paciente.length - 1].triagem = { temperatura, pressao, observacao, glicemia, risco, horario };
   localStorage.setItem("paciente", JSON.stringify(paciente));
 
   alert("Dados enviados para o médico");
@@ -78,7 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //mostrar a Lista
   comTriagem.forEach((paciente,index)=>{
-    const cor = paciente.triagem.risco
+    const cor = paciente.triagem.risco || paciente.triagem.risco;
+    const horario = paciente.triagem.horario || "Horário não registrado";
 
     const corDeRisco = {
       verde: "🟢",
@@ -88,17 +90,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }[cor.toLowerCase()] || "⚪"
 
     const div = document.createElement("div")
+     div.classList.add("paciente"); 
     div.innerHTML = `
       <strong>Paciente:</strong> ${paciente.nome} <br>
       <strong>Risco:</strong> ${corDeRisco} ${cor} <br>
+      <strong>Triagem às:</strong> ${horario} <br>
       <button onclick="atenderPaciente(${index})">Atender</button>
       <hr>`
 
       filaEl.appendChild(div)
   })
 })
-  
-//remove paciente da fila ao ser atendido
 
 function atenderPaciente(index){
    let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
@@ -114,3 +116,4 @@ function atenderPaciente(index){
   //Atualizar a tela
   location.reload();
    }
+   
