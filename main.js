@@ -9,6 +9,8 @@ function gerarTriagem() {
   localStorage.setItem("paciente", JSON.stringify(paciente));
 
   alert("Cadastrado com sucesso");
+  document.getElementById("nome") = ""
+  document.getElementById("motivo") = ""
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -64,6 +66,7 @@ function enviarTriagem() {
   document.getElementById("risco").value = "";
 
   location.reload();
+  paciente[proximoIndex].status = "Aguardando atendimento";
 }
 
 // Parte da tela do médico

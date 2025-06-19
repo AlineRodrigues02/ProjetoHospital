@@ -1,46 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Cadastro de Paciente/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Cadastro de Paciente/style.css" />
     <title>Hospital</title>
-</head>
+  </head>
 
-<!DOCTYPE html>
-<html lang="pt-br">
+  <!DOCTYPE html>
+  <html lang="pt-br">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="../Cadastro de Paciente/style.css" />
+      <title>Cadastro de Paciente</title>
+    </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../Cadastro de Paciente/style.css" />
-  <title>Cadastro de Paciente</title>
-</head>
+    <body>
+      <div class="container">
+        <h1>Cadastro de Paciente</h1>
 
-<body>
-  <div class="container">
-    <h1>Cadastro de Paciente</h1>
+        <form class="form-triagem" onsubmit="gerarTriagem(); return false;">
+          <div class="campo">
+            <label for="nome">Nome do Paciente:</label>
+            <input
+              type="text"
+              name="nome"
+              id="nome"
+              placeholder="Digite o nome completo"
+              required
+            />
+          </div>
 
-    <form class="form-triagem" onsubmit="gerarTriagem(); return false;">
-      <div class="campo">
-        <label for="nome">Nome do Paciente:</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite o nome completo" required />
+          <div class="campo">
+            <label for="motivo">Motivo da Consulta:</label>
+            <input
+              type="text"
+              name="motivo"
+              id="motivo"
+              placeholder="Ex: Dor no peito, febre..."
+              required
+            />
+          </div>
+
+          <button type="submit" class="botao-enviar" >
+            Registrar
+          </button>
+        </form>
+
+        <div class="link-medico">
+          <a href="../Triagem de Pacientes/index.html" target="_blank">👉 Ir para a triagem</a>
+        </div>
       </div>
 
-      <div class="campo">
-        <label for="motivo">Motivo da Consulta:</label>
-        <input type="text" name="motivo" id="motivo" placeholder="Ex: Dor no peito, febre..." required />
-      </div>
-
-      <button type="submit" class="botao-enviar">Registrar</button>
-    </form>
-
-    <div class="link-medico">
-      <a href="../Triagem de Pacientes/index.html">👉 Ir para a triagem</a>
-    </div>
-  </div>
-
-  <script src="../main.js"></script>
-</body>
-
+      <script src="../main.js"></script>
+    </body>
+  </html>
 </html>
