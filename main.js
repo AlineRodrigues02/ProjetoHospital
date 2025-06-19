@@ -39,13 +39,14 @@ function enviarTriagem() {
   const glicemia = document.getElementById("glicemia").value;
   const risco = document.getElementById("risco").value;
   const horario = new Date().toLocaleTimeString();
+  
 
   let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
 
   const proximoIndex = paciente.findIndex((p) => p.status === "Em Espera");
   if (proximoIndex === -1) return alert("Nenhum paciente aguardando triagem.");
 
-  paciente[proximoIndex].status = "Em triagem";
+  paciente[proximoIndex].status = "Aguardando atendimento";
   paciente[proximoIndex].triagem = {
     temperatura,
     pressao,
@@ -56,6 +57,7 @@ function enviarTriagem() {
   };
   localStorage.setItem("paciente", JSON.stringify(paciente));
 
+   
   alert("Triagem enviada, próximo paciente");
 
   // Limpar os campos
@@ -66,7 +68,7 @@ function enviarTriagem() {
   document.getElementById("risco").value = "";
 
   location.reload();
-  paciente[proximoIndex].status = "Aguardando atendimento";
+  
 }
 
 // Parte da tela do médico
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
 
   const comTriagem = paciente.filter(
-    (p) => p.triagem && p.status !== "Em atendimento"
+    (p) => p.triagem && p.status !== "Atendido"
   );
 
   if (comTriagem.length === 0) {
@@ -116,13 +118,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <hr>`;
 
     filaEl.appendChild(div);
+    
   });
 });
 
 function atenderPaciente(index) {
   let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
   const comTriagem = paciente.filter(
-    (p) => p.triagem && p.status !== "Em atendimento"
+    (p) => p.triagem && p.status !== "Atendido"
   );
 
   const atendido = comTriagem[index];
@@ -134,12 +137,14 @@ function atenderPaciente(index) {
   );
 
   if (indexOriginal !== -1) {
-    paciente[indexOriginal].status = "Em atendimento";
+    paciente[indexOriginal].status = "Atendido";
   }
 
   localStorage.setItem("paciente", JSON.stringify(paciente));
 
-  alert(`Atendendo paciente: ${atendido.nome}`);
+  
+
+  alert(`Paciente atendidos: ${atendido.nome}`);
   location.reload();
 }
 
@@ -149,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let paciente = JSON.parse(localStorage.getItem("paciente")) || [];
 
+  paciente = paciente.filter(p => p.status !== "Atendido")
   const prioridade = {
     vermelho: 1,
     amarelo: 2,
