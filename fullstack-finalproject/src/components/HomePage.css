@@ -1,0 +1,41 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* bloqueia qualquer scroll */
+}
+
+
+body {
+  background-image: url('/healthcare-background.png');
+  background-size: cover;
+  background-position: 0 -40%;
+  height: 100vh;
+}
+
+.HomeContent {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  height: 80vh;
+  text-align: left;
+  margin-right: 100px;
+}
+
+.HomeContent h1 {
+  color: rgba(162, 203, 246, 0.907);
+  font-size: 48px;
+  width: 40%;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.HomeContent p {
+  font-size: 12px;
+  color: #fff;
+  width: 40%;
+  margin-bottom: 5px;
+  line-height: 1.5;
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgb(0, 0, 0);
+}
