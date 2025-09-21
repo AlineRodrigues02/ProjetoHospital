@@ -1,0 +1,39 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  username     String   @unique
+  role         String   @default("ATENDENTE") // "MEDICO" | "ATENDENTE"
+  passwordHash String
+  createdAt    DateTime @default(now())
+  visits       Visit[]  @relation("DoctorVisits")
+}
+
+model Patient {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  visits    Visit[]
+}
+
+model Visit {
+  id         String   @id @default(cuid())
+  patientId  String
+  patient    Patient  @relation(fields: [patientId], references: [id])
+  reason     String?
+  color      String   // "VERMELHO" | "AMARELO" | "VERDE"
+  status     String   // "TRIAGEM" | "FILA" | "ATENDIMENTO" | "CONCLUIDO"
+  createdAt  DateTime @default(now())
+  startedAt  DateTime?
+  endedAt    DateTime?
+  doctorId   String?
+  doctor     User?    @relation("DoctorVisits", fields: [doctorId], references: [id])
+}
