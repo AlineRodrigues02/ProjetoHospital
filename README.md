@@ -44,3 +44,6 @@ Inclui **cadastro, triagem, atendimento médico, fila de espera, painel público
 - Tempo de espera (min)
 - Diagnóstico
 ## 👥 Colaboradores
+- limasantoss Igor Santos
+- soeiroo Pedro Israel
+- AlineRodrigues02
