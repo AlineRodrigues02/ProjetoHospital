@@ -1,12 +1,49 @@
-# React + Vite
+# 🏥 Sistema Hospitalar
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema desenvolvido para gerenciamento de pacientes em um ambiente hospitalar.  
+Inclui **cadastro, triagem, atendimento médico, fila de espera, painel público e exportação de histórico em CSV**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Funcionalidades
+- 📌 **Cadastro de Pacientes** – realizado pelo atendente  
+- 🩺 **Triagem** – prioridade e tempo de espera atribuídos pelo enfermeiro  
+- 👨‍⚕️ **Atendimento Médico** – registro de diagnóstico do paciente  
+- 📋 **Fila de Espera** – pacientes organizados por prioridade  
+- 📺 **Painel Público (TV)** – exibição da fila para acompanhantes  
+- 📂 **Histórico de Atendimentos** – com opção de exportar em **CSV**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Tecnologias
+
+**Backend**
+- Node.js + Express  
+- Cors  
+- CSV-Writer  
+
+**Frontend**
+- React  
+- Context API  
+- React Router DOM  
+- TailwindCSS  
+
+---
+## 📊 Fluxo de Funcionamento
+- Paciente é cadastrado pelo atendente.
+- Enfermeiro realiza a triagem.
+- Paciente entra na fila de espera.
+- Médico atende e insere diagnóstico.
+- Atendimento é registrado no histórico.
+- Histórico pode ser exportado em CSV.
+---
+## 📤 Exportação CSV
+- O histórico contém:
+- Paciente
+- Médico responsável
+- Tempo de espera (min)
+- Diagnóstico
+## 👥 Colaboradores
+- limasantoss Igor Santos
+- soeiroo Pedro Israel
+- AlineRodrigues02
