@@ -6,6 +6,8 @@ import Register from "./Register.jsx";
 import History from "./History.jsx";
 import DoctorLogin from "./DoctorLogin.jsx";
 import AttendantLogin from "./AttendantLogin.jsx";
+import HomePage from "./HomePage.jsx";
+import { useLocation } from 'react-router-dom';
 import { getCurrentUser, logout } from "./auth.js";
 
 
@@ -50,12 +52,15 @@ function HomeRedirect() {
   return <Navigate to={u.role === "ATENDENTE" ? "/atendente" : "/medico"} replace />;
 }
 
-export default function AppRouter() {
+function AppContent() {
+  const location = useLocation();
+  const hideTopNav = location.pathname === '/';
+
   return (
-    <HashRouter>
-      <TopNav />
+    <>
+      {!hideTopNav && <TopNav />}
       <Routes>
-        <Route path="/" element={<HomeRedirect />} />
+        <Route path="/" element={<HomePage />} />
 
         {/* logins */}
         <Route path="/atendente/login" element={<AttendantLogin />} />
@@ -96,6 +101,14 @@ export default function AppRouter() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+    </>
+  );
+}
+
+export default function AppRouter() {
+  return (
+    <HashRouter>
+      <AppContent />
     </HashRouter>
   );
 }

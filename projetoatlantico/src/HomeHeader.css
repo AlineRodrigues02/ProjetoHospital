@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.TopHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  color: rgb(182, 178, 178);
+}
+
+.TopHeader ul {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.TopHeader li {
+  margin: 0 10px;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(182, 178, 178);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+nav {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 10px;
+}
+
+.NavLinks {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 20px;
+  margin-left: 20px;
+  color: white;
+  text-decoration: none;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.NavLinks a {
+  color: rgb(37, 8, 100);
+  margin: 0 10px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.NavLinks a:hover {
+  color: #303ce7;
+  transform: translateY(-1px);
+}
+
+header {
+  background-color: #f2f3f4;
+}
+
+.HeaderLine {
+  border-bottom: 2px solid #303ce7;
+  margin-bottom: 10px;
+}
+
+.LogoSection img {
+  object-fit: cover;
+  height: 100px;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}
+
+.SearchSection {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  gap: 8px;
+}
+
+.SearchSection form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: white;
+  border-radius: 24px;
+  padding: 4px 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.SearchSection form:focus-within {
+  border-color: #303ce7;
+  box-shadow: 0 4px 16px rgba(48, 60, 231, 0.15);
+  transform: translateY(-1px);
+}
+
+.SearchSection input {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  background: transparent;
+  color: #333;
+  width: 240px;
+  font-family: inherit;
+}
+
+.SearchSection input::placeholder {
+  color: #999;
+  font-weight: 400;
+}
+
+.SearchSection button {
+  background: linear-gradient(135deg, #303ce7, #4f46e5);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(48, 60, 231, 0.3);
+}
+
+.SearchSection button:hover {
+  background: linear-gradient(135deg, #2730d1, #4338ca);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(48, 60, 231, 0.4);
+}
+
+.SearchSection button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(48, 60, 231, 0.3);
+}
+
+.PortalSection {
+  margin-left: 20px;
+}
+
+.PortalButton {
+  background: linear-gradient(135deg, #0f1012c4 0%, #51545b 100%);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.PortalButton:hover {
+  background: linear-gradient(135deg, #323535 0%, #455858 100%);
+  transform: translateY(-2px);
+}
+
+.PortalButton:active {
+  transform: translateY(0);
+}
+
+/* Animação de pulsação no foco do input */
+@keyframes pulse {
+  0% { box-shadow: 0 4px 16px rgba(48, 60, 231, 0.15); }
+  50% { box-shadow: 0 4px 20px rgba(48, 60, 231, 0.25); }
+  100% { box-shadow: 0 4px 16px rgba(48, 60, 231, 0.15); }
+}
+
+.SearchSection form:focus-within {
+  animation: pulse 2s infinite;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .SearchSection input {
+    width: 180px;
+  }
+  
+  .SearchSection button {
+    padding: 10px 16px;
+  }
+  
+  .NavLinks {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .TopHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .PortalSection {
+    margin-left: 10px;
+  }
+  
+  .PortalButton {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .LogoSection img {
+    height: 80px;
+    width: 200px;
+  }
+}

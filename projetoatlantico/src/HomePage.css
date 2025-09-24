@@ -1,0 +1,78 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('/hero-background.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.HomeContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: left;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.HomeContent h1 {
+  color: #ffffff;
+  font-size: clamp(2rem, 5vw, 3rem);
+  width: min(40%, 600px);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.HomeContent p {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: #f0f8ff;
+  width: min(40%, 500px);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-weight: 400;
+  text-shadow: 
+    1px 1px 2px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .HomeContent {
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .HomeContent h1,
+  .HomeContent p {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .HomeContent h1 {
+    font-size: 1.5rem;
+  }
+  
+  .HomeContent p {
+    font-size: 0.875rem;
+  }
+}

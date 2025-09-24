@@ -32,49 +32,81 @@ export default function DoctorPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="mx-auto max-w-6xl p-4">
-        <h1 className="mb-4 text-2xl font-bold text-slate-800">Painel do Médico</h1>
+    <>
+      {/* CSS embutido do background grid */}
+      <style>{`
+        .grid-wrapper {
+          min-height: 100vh;
+          width: 100%;
+          background-color: #f8fafc;
+          background-image:
+            linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+            linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+          background-size: 20px 30px;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        }
+      `}</style>
 
-        {/* Em atendimento */}
-        <div className="rounded-2xl bg-white p-4 shadow ring-1 ring-black/5">
-          <div className="mb-2 flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-slate-700">Em atendimento</h2>
+      <div className="grid-wrapper">
+        <div className="min-h-screen relative z-10 w-full max-w-6xl p-4">
+          <h1 className="mb-4 text-2xl font-bold text-slate-800">Painel do Médico</h1>
+
+          {/* Em atendimento */}
+          <div className="rounded-2xl bg-white p-4 shadow ring-1 ring-black/5">
+            <div className="mb-2 flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-slate-700">Em atendimento</h2>
+            </div>
+
+            {inService ? (
+              <PatientRow
+                p={inService}
+                actions={
+                  <button
+                    onClick={() => finishVisit(inService)}
+                    className="rounded-lg bg-emerald-600 px-3 py-1 text-xs font-semibold text-white"
+                  >
+                    Concluir
+                  </button>
+                }
+              />
+            ) : (
+              <div className="rounded-xl border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">
+                Ninguém em atendimento
+              </div>
+            )}
           </div>
 
-          {inService ? (
-            <PatientRow
-              p={inService}
-              actions={<button onClick={()=>finishVisit(inService)} className="rounded-lg bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">Concluir</button>}
-            />
-          ) : (
-            <div className="rounded-xl border border-dashed border-slate-300 p-4 text-center text-sm text-slate-500">
-              Ninguém em atendimento
-            </div>
-          )}
-        </div>
-
-        {/* Fila */}
-        <div className="mt-4 rounded-2xl bg-white p-4 shadow ring-1 ring-black/5">
-          <h2 className="mb-2 text-sm font-semibold text-slate-700">Fila</h2>
-          <ul className="space-y-2">
-            {queue.map(v => (
-              <li key={v.id}>
-                <PatientRow
-                  p={v}
-                  actions={<button onClick={()=>startVisit(v)} className="rounded-lg bg-indigo-600 px-3 py-1 text-xs font-semibold text-white">Iniciar</button>}
-                />
-              </li>
-            ))}
-            {queue.length === 0 && (
-              <li className="rounded-xl border border-dashed border-slate-300 p-3 text-center text-xs text-slate-500">
-                Sem pacientes na fila
-              </li>
-            )}
-          </ul>
+          {/* Fila */}
+          <div className="mt-4 rounded-2xl bg-white p-4 shadow ring-1 ring-black/5">
+            <h2 className="mb-2 text-sm font-semibold text-slate-700">Fila</h2>
+            <ul className="space-y-2">
+              {queue.map(v => (
+                <li key={v.id}>
+                  <PatientRow
+                    p={v}
+                    actions={
+                      <button
+                        onClick={() => startVisit(v)}
+                        className="rounded-lg bg-indigo-600 px-3 py-1 text-xs font-semibold text-white"
+                      >
+                        Iniciar
+                      </button>
+                    }
+                  />
+                </li>
+              ))}
+              {queue.length === 0 && (
+                <li className="rounded-xl border border-dashed border-slate-300 p-3 text-center text-xs text-slate-500">
+                  Sem pacientes na fila
+                </li>
+              )}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
