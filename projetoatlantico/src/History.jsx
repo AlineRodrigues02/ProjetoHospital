@@ -1,6 +1,7 @@
 // src/History.jsx
 import { useEffect, useMemo, useState } from "react";
-import { loadHistory } from "./data.js";
+// import { loadHistory } from "./data.js";
+import {getHistory} from "./data.js"
 
 function formatDate(ts) {
   if (!ts) return "—";
@@ -8,26 +9,31 @@ function formatDate(ts) {
   return d.toLocaleString();
 }
 function minutes(ms) {
+  if (!ms || isNaN(ms)) return "—"; //evitar NaN
   return (ms / 60000).toFixed(1);
 }
 
 export default function History() {
-  const [all, setAll] = useState(loadHistory());
+  // const [all, setAll] = useState(loadHistory());
+  const [all, setAll] = useState([]);
   const [name, setName] = useState("");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [status, setStatus] = useState("Concluído");
+  const [status, setStatus] = useState("CONCLUIDO");
 
-  useEffect(() => {
-    function onStorage(e) {
-      if (e.key === "history") {
-        try { setAll(JSON.parse(e.newValue || "[]")); } catch {}
-      }
-    }
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+  // useEffect(() => {
+  //   function onStorage(e) {
+  //     if (e.key === "history") {
+  //       try { setAll(JSON.parse(e.newValue || "[]")); } catch {}
+  //     }
+  //   }
+  //   window.addEventListener("storage", onStorage);
+  //   return () => window.removeEventListener("storage", onStorage);
+  // }, []);
 
+   useEffect(() => {
+    getHistory({ name, from, to, status }).then(setAll);
+  }, [name, from, to, status]);
   const filtered = useMemo(() => {
     const n = name.trim().toLowerCase();
     const fromTs = from ? new Date(from + "T00:00:00").getTime() : null;
@@ -39,17 +45,36 @@ export default function History() {
       if (toTs && keyTs > toTs) return false;
       if (status && r.status !== status) return false;
       return true;
-    }).sort((a,b)=> (a.startedAt||a.createdAt||0) - (b.startedAt||b.createdAt||0));
+    }).sort((a, b) => (a.startedAt || a.createdAt || 0) - (b.startedAt || b.createdAt || 0));
   }, [all, name, from, to, status]);
+
+  // const filtered = useMemo(() => {
+  //   const n = name.trim().toLowerCase();
+  //   const fromTs = from ? new Date(from + "T00:00:00").getTime() : null;
+  //   const toTs = to ? new Date(to + "T23:59:59").getTime() : null;
+  //   return all.filter(r => {
+  //     if (n && !r.name.toLowerCase().includes(n)) return false;
+  //     const keyTs = r.startedAt || r.createdAt || 0;
+  //     if (fromTs && keyTs < fromTs) return false;
+  //     if (toTs && keyTs > toTs) return false;
+  //     if (status && r.status !== status) return false;
+  //     return true;
+  //   }).sort((a,b)=> (a.startedAt||a.createdAt||0) - (b.startedAt||b.createdAt||0));
+  // }, [all, name, from, to, status]);
 
   const stats = useMemo(() => {
     const byDoctor = {};
     const byPriority = { vermelho: 0, amarelo: 0, verde: 0 };
     let waits = [];
     for (const r of filtered) {
-      byDoctor[r.attendedBy || "—"] = (byDoctor[r.attendedBy || "—"] || 0) + 1;
+      // byDoctor[r.attendedBy || "—"] = (byDoctor[r.attendedBy || "—"] || 0) + 1;
+      byDoctor[r.doctor?.name || "—"] = (byDoctor[r.doctor?.name || "—"] || 0) + 1;
       byPriority[r.color] = (byPriority[r.color] || 0) + 1;
-      if (r.startedAt && r.createdAt) waits.push(r.startedAt - r.createdAt);
+      // if (r.startedAt && r.createdAt) waits.push(r.startedAt - r.createdAt);
+      if (r.startedAt && r.createdAt) {
+        const diff = new Date(r.startedAt).getTime() - new Date(r.createdAt).getTime();
+        if (!isNaN(diff)) waits.push(diff);
+      }
     }
     const avgWaitMs = waits.length ? waits.reduce((a,b)=>a+b,0) / waits.length : 0;
     return { byDoctor, byPriority, avgWaitMinutes: Number(minutes(avgWaitMs)) };
@@ -128,7 +153,9 @@ export default function History() {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-slate-700">Status</label>
               <select value={status} onChange={e=>setStatus(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500">
-                <option value="Concluído">Concluído</option>
+               <option value="CONCLUIDO">Concluído</option>
+                <option value="ATENDIMENTO">Em atendimento</option>
+                <option value="TRIAGEM">Triagem</option>
                 <option value="">Todos</option>
               </select>
             </div>
@@ -157,13 +184,22 @@ export default function History() {
               <tbody>
                 {filtered.map((r, i) => (
                   <tr key={r.id} className={i % 2 ? "bg-white" : "bg-slate-50/30"}>
-                    <td className="px-4 py-2 font-medium text-slate-800">{r.name}</td>
+                    {/* <td className="px-4 py-2 font-medium text-slate-800">{r.name}</td>
+                     */}
+                     <td className="px-4 py-2 font-medium text-slate-800">{r.patient?.name || "—"}</td>
                     <td className="px-4 py-2 text-slate-700">{r.reason || "—"}</td>
                     <td className="px-4 py-2 capitalize">{r.color}</td>
-                    <td className="px-4 py-2">{r.attendedBy || "—"}</td>
+                    {/* <td className="px-4 py-2">{r.attendedBy || "—"}</td> */}
+                    <td className="px-4 py-2">{r.doctor?.name || "—"}</td>
                     <td className="px-4 py-2">{formatDate(r.startedAt)}</td>
                     <td className="px-4 py-2">{formatDate(r.endedAt)}</td>
-                    <td className="px-4 py-2">{r.startedAt && r.createdAt ? minutes(r.startedAt - r.createdAt) : "—"}</td>
+                    {/* <td className="px-4 py-2">{r.startedAt && r.createdAt ? minutes(r.startedAt - r.createdAt) : "—"}</td> */}
+                    <td className="px-4 py-2">
+                      {r.startedAt && r.createdAt
+                        ? minutes(new Date(r.startedAt).getTime() - new Date(r.createdAt).getTime())
+                        : "—"}
+                    </td>
+
                   </tr>
                 ))}
                 {filtered.length === 0 && (

@@ -1,5 +1,6 @@
 
 // src/data.js
+export const BASE = "http://localhost:3333";
 export const PATIENTS_KEY = "patients";
 export const HISTORY_KEY = "history";
 
@@ -7,8 +8,8 @@ export function loadPatients() {
   try { return JSON.parse(localStorage.getItem(PATIENTS_KEY) || "[]"); }
   catch { return []; }
 }
-export function savePatients(p) {
-  localStorage.setItem(PATIENTS_KEY, JSON.stringify(p));
+export function savePatients(h) {
+  localStorage.setItem(PATIENTS_KEY, JSON.stringify(h));
 }
 
 export function loadHistory() {
@@ -55,9 +56,29 @@ export function triageColor(text) {
 
 export function orderQueue(arr) {
   return [...arr].sort((a, b) => {
-    const pa = COLOR_INFO[a.color].priority;
-    const pb = COLOR_INFO[b.color].priority;
+    const pa = COLOR_INFO[(a.color || "").toLowerCase()]?.priority || 0;
+    const pb = COLOR_INFO[(b.color || "").toLowerCase()]?.priority || 0;
     if (pb !== pa) return pb - pa; // vermelho > amarelo > verde
-    return a.createdAt - b.createdAt;
+    // fallback para createdAt (podem ser strings)
+    const ta = new Date(a.createdAt || 0).getTime();
+    const tb = new Date(b.createdAt || 0).getTime();
+    return ta - tb;
   });
+}
+export async function getHistory(filters = {}) {
+  const params = new URLSearchParams();
+  if (filters.name) params.set("name", filters.name);
+  if (filters.from) params.set("from", filters.from);
+  if (filters.to) params.set("to", filters.to);
+  if (filters.status) params.set("status", filters.status);
+  const qs = params.toString();
+  const url = `${BASE}/history${qs ? `?${qs}` : ""}`;
+
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    const txt = await res.text().catch(()=>"");
+    throw new Error(txt || `HTTP ${res.status}`);
+  }
+  return res.json();
 }
